@@ -1,4 +1,4 @@
-package com.setianjay.watchme
+package com.setianjay.watchme.main
 
 import org.junit.Test
 
