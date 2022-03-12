@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 rootProject.name = "WatchMe"
 include ':app'
 include ':core'
-include ':main'

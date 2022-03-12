@@ -1,8 +1,8 @@
-package com.setianjay.watchme.main.presentation
+package com.setianjay.watchme.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.setianjay.watchme.main.databinding.ActivityMainBinding
+import com.setianjay.watchme.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
