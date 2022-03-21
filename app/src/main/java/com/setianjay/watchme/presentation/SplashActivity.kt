@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.setianjay.watchme.presentation.home.HomeActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -22,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
     private fun splashScreenProcess() {
         lifecycleScope.launch {
             delay(3000L)
-            Intent(this@SplashActivity, MainActivity::class.java).also {
+            Intent(this@SplashActivity, HomeActivity::class.java).also {
                 startActivity(it)
                 finish()
             }

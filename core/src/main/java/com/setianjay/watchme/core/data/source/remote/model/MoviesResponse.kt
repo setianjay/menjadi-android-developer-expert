@@ -11,31 +11,34 @@ data class MoviesResponse(
     val moviesItems: List<MoviesItem>
 ){
     data class MoviesItem(
+        @SerializedName("backdrop_path")
+        val moviesBackdrop: String,
+
         @SerializedName("genre_ids")
-        val movieGenreIds: List<Int>,
+        val moviesGenreIds: List<Int>,
 
         @SerializedName("id")
-        val movieId: Long,
+        val moviesId: Long,
 
         @SerializedName("original_language")
-        val movieLanguage: String,
+        val moviesLanguage: String,
 
         @SerializedName("overview")
-        val movieOverview: String,
+        val moviesOverview: String,
 
         @SerializedName("popularity")
-        val moviePopularity: Double,
+        val moviesPopularity: Double,
 
         @SerializedName("poster_path")
-        val moviePoster: String,
+        val moviesPoster: String,
 
         @SerializedName("release_date")
-        val movieRelease: String,
+        val moviesRelease: String,
 
         @SerializedName("title")
-        val movieTitle: String,
+        val moviesTitle: String,
 
         @SerializedName("vote_average")
-        val movieRating: Double
+        val moviesRating: Double
     )
 }

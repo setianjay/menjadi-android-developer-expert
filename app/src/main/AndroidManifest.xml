@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.setianjay.watchme">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -25,7 +27,7 @@
         </activity>
 
         <activity
-            android:name="com.setianjay.watchme.presentation.MainActivity"
+            android:name="com.setianjay.watchme.presentation.home.HomeActivity"
             android:exported="true" />
 
     </application>

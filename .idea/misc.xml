@@ -4,18 +4,37 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/drawable-v24/bg_progress_bar_horizontal.xml" value="0.1705" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/drawable/bg_item_movie_vertical.xml" value="0.156" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/drawable/bg_poster_rating.xml" value="0.1545" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/drawable/bg_rating.xml" value="0.124" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/drawable/bg_search.xml" value="0.1545" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/drawable/bg_splash.xml" value="0.1705" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/drawable/bg_top_ground_slider.xml" value="0.1545" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/drawable/bg_topground_slider.xml" value="0.1545" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/font/font.xml" value="0.284375" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/fragment_content.xml" value="0.23007246376811594" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/fragment_favorite.xml" value="0.25416666666666665" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/fragment_home.xml" value="0.176" />
-        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/fragment_movies.xml" value="0.16799999999999998" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/fragment_movies.xml" value="0.1" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/fragment_tv_show.xml" value="0.1" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/fragment_tv_shows.xml" value="0.11302083333333333" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/item_home_slider.xml" value="0.1" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/item_list_contents.xml" value="0.4" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/item_movie_horizontal.xml" value="0.4" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/item_movie_vertical.xml" value="0.264" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/layout/tab_custom.xml" value="0.2" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25052083333333336" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/menu/home_menu.xml" value="0.1" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/app/src/main/res/menu/main_menu.xml" value="0.16" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/drawable/bg_poster_rating.xml" value="0.156" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/drawable/bg_splash.xml" value="0.156" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/drawable/ic_movie_placeholder.xml" value="0.156" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/layout/item_movie_horizontal.xml" value="0.1" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/layout/item_movie_vertical.xml" value="0.2006340579710145" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/layout/layout_loading.xml" value="0.19384057971014493" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/main/src/main/res/drawable/bg_progress_bar_horizontal.xml" value="0.124" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/main/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/main/src/main/res/layout/activity_splash.xml" value="0.2" />

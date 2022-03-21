@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WatchMe</string>
+
+    <!-- home -->
+    <string name="favorite">Favorite</string>
+    <string name="hint_search">Search movie</string>
+    <string name="image_slider">image slider</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="popular">Popular</string>
+    <string name="settings">Settings</string>
 </resources>

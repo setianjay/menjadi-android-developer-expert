@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- global string -->
+    <string name="icon_search">search icon</string>
+    <string name="icon_tab">tab icon</string>
+    <string name="image_movie_poster">image movie poster</string>
+    <string name="movies">Movies</string>
+    <string name="no_genre">No genre yet</string>
+    <string name="release">Release: %s</string>
+    <string name="tv">Tv Shows</string>
+
+    <!-- global dummy -->
+    <string name="dummy_genre">Adventure, Action, Comedy</string>
+    <string name="dummy_overview">In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.</string>
+    <string name="dummy_rating">9.0</string>
+    <string name="dummy_release">Release: 20 March 2022</string>
+    <string name="dummy_title">Spider-Man: No Way Home</string>
+</resources>

@@ -14,12 +14,13 @@ import com.setianjay.watchme.core.domain.model.Movie
 fun List<MovieNowPlayingEntity>.movieNowPlayingEntityToMovie(): List<Movie> {
     return this.map { movieNowPlayingEntity ->
         Movie(
+            movieBackdrop = movieNowPlayingEntity.movieBackdrop ?: "",
             movieGenre = movieNowPlayingEntity.movieGenre,
             movieId = movieNowPlayingEntity.movieId,
             movieLanguage = movieNowPlayingEntity.movieLanguage,
             movieOverview = movieNowPlayingEntity.movieOverview,
             moviePopularity = movieNowPlayingEntity.moviePopularity,
-            moviePoster = movieNowPlayingEntity.moviePoster,
+            moviePoster = movieNowPlayingEntity.moviePoster ?: "",
             movieRelease = movieNowPlayingEntity.movieRelease,
             movieTitle = movieNowPlayingEntity.movieTitle,
             movieRating = movieNowPlayingEntity.movieRating,
@@ -36,12 +37,13 @@ fun List<MovieNowPlayingEntity>.movieNowPlayingEntityToMovie(): List<Movie> {
 fun List<MoviePopularEntity>.moviePopularEntityToMovie(): List<Movie> {
     return this.map { moviePopularEntity ->
         Movie(
+            movieBackdrop = moviePopularEntity.movieBackdrop ?: "",
             movieGenre = moviePopularEntity.movieGenre,
             movieId = moviePopularEntity.movieId,
             movieLanguage = moviePopularEntity.movieLanguage,
             movieOverview = moviePopularEntity.movieOverview,
             moviePopularity = moviePopularEntity.moviePopularity,
-            moviePoster = moviePopularEntity.moviePoster,
+            moviePoster = moviePopularEntity.moviePoster ?: "",
             movieRelease = moviePopularEntity.movieRelease,
             movieTitle = moviePopularEntity.movieTitle,
             movieRating = moviePopularEntity.movieRating,
@@ -57,17 +59,18 @@ fun List<MoviePopularEntity>.moviePopularEntityToMovie(): List<Movie> {
  * @note        [MovieNowPlayingEntity.isMovies] true because it is movies
  * */
 fun List<MoviesItem>.movieItemToMovieNowPlayingEntity(): List<MovieNowPlayingEntity> {
-    return this.map { movieItem ->
+    return this.map { moviesItem ->
         MovieNowPlayingEntity(
-            movieGenre = DataUtil.getGenres(movieItem.movieGenreIds),
-            movieId = movieItem.movieId,
-            movieLanguage = movieItem.movieLanguage,
-            movieOverview = movieItem.movieOverview,
-            moviePopularity = movieItem.moviePopularity,
-            moviePoster = movieItem.moviePoster,
-            movieRelease = movieItem.movieRelease,
-            movieTitle = movieItem.movieTitle,
-            movieRating = movieItem.movieRating,
+            movieBackdrop = moviesItem.moviesBackdrop,
+            movieGenre = DataUtil.getGenres(moviesItem.moviesGenreIds),
+            movieId = moviesItem.moviesId,
+            movieLanguage = moviesItem.moviesLanguage,
+            movieOverview = moviesItem.moviesOverview,
+            moviePopularity = moviesItem.moviesPopularity,
+            moviePoster = moviesItem.moviesPoster,
+            movieRelease = moviesItem.moviesRelease,
+            movieTitle = moviesItem.moviesTitle,
+            movieRating = moviesItem.moviesRating,
             isMovies = true
         )
     }
@@ -80,17 +83,18 @@ fun List<MoviesItem>.movieItemToMovieNowPlayingEntity(): List<MovieNowPlayingEnt
  * @note        [MoviePopularEntity.isMovies] true because it is movies
  * */
 fun List<MoviesItem>.movieItemToMoviePopularEntity(): List<MoviePopularEntity> {
-    return this.map { movieItem ->
+    return this.map { moviesItem ->
         MoviePopularEntity(
-            movieGenre = DataUtil.getGenres(movieItem.movieGenreIds),
-            movieId = movieItem.movieId,
-            movieLanguage = movieItem.movieLanguage,
-            movieOverview = movieItem.movieOverview,
-            moviePopularity = movieItem.moviePopularity,
-            moviePoster = movieItem.moviePoster,
-            movieRelease = movieItem.movieRelease,
-            movieTitle = movieItem.movieTitle,
-            movieRating = movieItem.movieRating,
+            movieBackdrop = moviesItem.moviesBackdrop,
+            movieGenre = DataUtil.getGenres(moviesItem.moviesGenreIds),
+            movieId = moviesItem.moviesId,
+            movieLanguage = moviesItem.moviesLanguage,
+            movieOverview = moviesItem.moviesOverview,
+            moviePopularity = moviesItem.moviesPopularity,
+            moviePoster = moviesItem.moviesPoster,
+            movieRelease = moviesItem.moviesRelease,
+            movieTitle = moviesItem.moviesTitle,
+            movieRating = moviesItem.moviesRating,
             isMovies = true
         )
     }
@@ -105,6 +109,7 @@ fun List<MoviesItem>.movieItemToMoviePopularEntity(): List<MoviePopularEntity> {
 fun List<TvShowItem>.tvShowItemToMovieNowPlayingEntity(): List<MovieNowPlayingEntity> {
     return this.map { tvShowItem ->
         MovieNowPlayingEntity(
+            movieBackdrop = tvShowItem.tvShowBackdrop,
             movieGenre = DataUtil.getGenres(tvShowItem.tvGenreIds),
             movieId = tvShowItem.tvShowId,
             movieLanguage = tvShowItem.tvShowLanguage,
@@ -129,6 +134,7 @@ fun List<TvShowItem>.tvShowItemToMovieNowPlayingEntity(): List<MovieNowPlayingEn
 fun List<TvShowItem>.tvShowItemToMoviePopularEntity(): List<MoviePopularEntity> {
     return this.map { tvShowItem ->
         MoviePopularEntity(
+            movieBackdrop = tvShowItem.tvShowBackdrop,
             movieGenre = DataUtil.getGenres(tvShowItem.tvGenreIds),
             movieId = tvShowItem.tvShowId,
             movieLanguage = tvShowItem.tvShowLanguage,
