@@ -10,7 +10,7 @@ import com.setianjay.watchme.core.domain.model.Movie
 import com.setianjay.watchme.core.utils.FormatUtil
 import com.setianjay.watchme.core.utils.ViewUtil.load
 
-class VerticalMovieAdapter(private val context: Context) :
+class VerticalMovieAdapter(private val context: Context, private val listener: OnMovieAdapterListener) :
     RecyclerView.Adapter<VerticalMovieAdapter.VerticalMovieViewHolder>() {
 
     private val listMovie = ArrayList<Movie>()
@@ -42,7 +42,7 @@ class VerticalMovieAdapter(private val context: Context) :
 
         fun bind(movie: Movie) {
             binding.apply {
-                ivMoviePoster.load(movie.moviePoster)
+                ivMoviePoster.load(movie.movieBackdrop)
                 tvMovieTitle.text = movie.movieTitle
                 tvMovieGenre.text =
                     movie.movieGenre.ifEmpty {
@@ -56,6 +56,10 @@ class VerticalMovieAdapter(private val context: Context) :
                 )
                 rbMovie.rating = movie.movieRating.toFloat()
                 tvRating.text = movie.movieRating.toString()
+
+                root.setOnClickListener {
+                    listener.onClick(movie)
+                }
             }
         }
     }

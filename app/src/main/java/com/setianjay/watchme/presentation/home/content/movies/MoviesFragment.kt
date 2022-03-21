@@ -8,14 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.setianjay.watchme.core.data.Resource
+import com.setianjay.watchme.core.domain.model.Movie
 import com.setianjay.watchme.core.utils.ViewUtil.show
 import com.setianjay.watchme.databinding.FragmentMoviesBinding
 import com.setianjay.watchme.core.presentation.adapter.HorizontalMovieAdapter
+import com.setianjay.watchme.core.presentation.adapter.OnMovieAdapterListener
 import com.setianjay.watchme.core.presentation.adapter.VerticalMovieAdapter
+import com.setianjay.watchme.presentation.detail.DetailMovieActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment() {
+class MoviesFragment : Fragment(), OnMovieAdapterListener {
     private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding
     private val moviesViewModel: MoviesViewModel by viewModels()
@@ -43,7 +46,7 @@ class MoviesFragment : Fragment() {
      * setup content movies now playing
      * */
     private fun setupMoviesNowPlaying() {
-        moviesHorizontalAdapter = HorizontalMovieAdapter()
+        moviesHorizontalAdapter = HorizontalMovieAdapter(this)
 
         binding?.rvMovieHorizontal?.apply {
             layoutManager =
@@ -57,7 +60,7 @@ class MoviesFragment : Fragment() {
      * setup content movies popular
      * */
     private fun setupMoviesPopular() {
-        moviesVerticalAdapter = VerticalMovieAdapter(requireContext())
+        moviesVerticalAdapter = VerticalMovieAdapter(requireContext(), this)
 
         binding?.rvMovieVertical?.apply {
             layoutManager =
@@ -103,6 +106,20 @@ class MoviesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    /**
+     * listener when content has clicked
+     *
+     * @param movie     data of movie
+     * */
+    override fun onClick(movie: Movie) {
+        requireActivity().startActivity(
+            DetailMovieActivity.navigateToDetailMovieActivity(
+                requireContext(),
+                movie
+            )
+        )
     }
 
     override fun onDestroyView() {

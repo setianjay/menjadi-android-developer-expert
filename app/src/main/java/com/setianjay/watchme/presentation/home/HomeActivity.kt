@@ -1,13 +1,17 @@
 package com.setianjay.watchme.presentation.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.setianjay.watchme.R
 import com.setianjay.watchme.core.data.Resource
+import com.setianjay.watchme.core.domain.model.Movie
+import com.setianjay.watchme.core.presentation.adapter.OnMovieAdapterListener
 import com.setianjay.watchme.core.utils.ViewUtil.show
 import com.setianjay.watchme.databinding.ActivityHomeBinding
+import com.setianjay.watchme.presentation.detail.DetailMovieActivity
 import com.setianjay.watchme.presentation.home.adapter.slider.ViewSliderHomeAdapter
 import com.setianjay.watchme.presentation.home.adapter.tab.ViewTabHomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -32,13 +37,24 @@ class HomeActivity : AppCompatActivity() {
         setupViewPagerSlider()
         setupViewTabMain()
         setupSelectedCustomTab()
+        Timber.d("onCreate called")
     }
 
     /**
      * setup viewpager2 as slider
      * */
     private fun setupViewPagerSlider() {
-        viewPagerSliderHomeAdapter = ViewSliderHomeAdapter()
+        viewPagerSliderHomeAdapter = ViewSliderHomeAdapter(object : OnMovieAdapterListener {
+            override fun onClick(movie: Movie) {
+                startActivity(
+                    DetailMovieActivity.navigateToDetailMovieActivity(
+                        this@HomeActivity,
+                        movie
+                    )
+                )
+            }
+
+        })
         binding.vpSlider.adapter = viewPagerSliderHomeAdapter
     }
 

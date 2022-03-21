@@ -7,7 +7,7 @@ import com.setianjay.watchme.core.databinding.ItemMovieHorizontalBinding
 import com.setianjay.watchme.core.domain.model.Movie
 import com.setianjay.watchme.core.utils.ViewUtil.load
 
-class HorizontalMovieAdapter :
+class HorizontalMovieAdapter(private val listener: OnMovieAdapterListener) :
     RecyclerView.Adapter<HorizontalMovieAdapter.HorizontalMovieViewHolder>() {
 
     private val listMovie = ArrayList<Movie>()
@@ -41,6 +41,10 @@ class HorizontalMovieAdapter :
             binding.apply {
                 ivMoviePoster.load(movie.moviePoster)
                 tvMovieRating.text = movie.movieRating.toString()
+
+                root.setOnClickListener {
+                    listener.onClick(movie)
+                }
             }
         }
     }

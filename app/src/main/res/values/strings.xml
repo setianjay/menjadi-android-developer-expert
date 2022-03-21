@@ -4,8 +4,12 @@
     <!-- home -->
     <string name="favorite">Favorite</string>
     <string name="hint_search">Search movie</string>
+    <string name="icon_favorite">favorite movie</string>
     <string name="image_slider">image slider</string>
+    <string name="movie_language">Language: %s</string>
+    <string name="movie_popularity">Language: %s</string>
     <string name="now_playing">Now Playing</string>
+    <string name="overview">Overview</string>
     <string name="popular">Popular</string>
     <string name="settings">Settings</string>
 </resources>

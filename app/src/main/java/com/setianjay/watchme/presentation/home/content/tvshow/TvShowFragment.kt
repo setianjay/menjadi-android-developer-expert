@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.setianjay.watchme.core.data.Resource
+import com.setianjay.watchme.core.domain.model.Movie
 import com.setianjay.watchme.core.presentation.adapter.HorizontalMovieAdapter
+import com.setianjay.watchme.core.presentation.adapter.OnMovieAdapterListener
 import com.setianjay.watchme.core.presentation.adapter.VerticalMovieAdapter
 import com.setianjay.watchme.core.utils.ViewUtil.show
 import com.setianjay.watchme.databinding.FragmentTvShowBinding
+import com.setianjay.watchme.presentation.detail.DetailMovieActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TvShowFragment : Fragment() {
+class TvShowFragment : Fragment(), OnMovieAdapterListener {
     private var _binding: FragmentTvShowBinding? = null
     private val binding get() = _binding
     private val tvViewModel: TvShowViewModel by viewModels()
@@ -43,7 +46,7 @@ class TvShowFragment : Fragment() {
      * setup content tv now playing
      * */
     private fun setupTvNowPlaying(){
-        tvHorizontalAdapter = HorizontalMovieAdapter()
+        tvHorizontalAdapter = HorizontalMovieAdapter(this)
 
         binding?.rvMovieHorizontal?.apply {
             layoutManager =
@@ -57,7 +60,7 @@ class TvShowFragment : Fragment() {
      * setup content tv popular
      */
     private fun setupTvPopular(){
-        tvVerticalAdapter = VerticalMovieAdapter(requireContext())
+        tvVerticalAdapter = VerticalMovieAdapter(requireContext(), this)
 
         binding?.rvMovieVertical?.apply {
             layoutManager =
@@ -103,6 +106,20 @@ class TvShowFragment : Fragment() {
                 }
             }
         }
+    }
+
+    /**
+     * listener when content has clicked
+     *
+     * @param movie     data of movie
+     * */
+    override fun onClick(movie: Movie) {
+        requireActivity().startActivity(
+            DetailMovieActivity.navigateToDetailMovieActivity(
+                requireContext(),
+                movie
+            )
+        )
     }
 
     override fun onDestroyView() {
