@@ -3,14 +3,23 @@ package com.setianjay.watchme.presentation.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.setianjay.watchme.R
 import com.setianjay.watchme.core.domain.model.Movie
+import com.setianjay.watchme.core.utils.ViewUtil.getHtmlSpannedString
 import com.setianjay.watchme.core.utils.ViewUtil.load
 import com.setianjay.watchme.databinding.ActivityDetailMovieBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailMovieBinding
+    private val detailViewModel by viewModels<DetailViewModel>()
+
+    private var isMovieFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,14 +30,54 @@ class DetailMovieActivity : AppCompatActivity() {
         setupData()
     }
 
+
     /**
-     * setup movie data from intent
+     * setup data movie
      * */
-    private fun setupData(){
+    private fun setupData() {
         val movie = intent.extras?.getParcelable<Movie>(EXTRA_DETAIL)
         movie?.let {
-            //check user
+            checkMovieIsFavorite(it.movieId)
+            initListener(it)
             populateDataDetail(it)
+        }
+    }
+
+    /**
+     * check whether is movie has favorite before
+     *
+     * @param movieId       movie id to check in database whether movie is there or not
+     * @output              if there, image favorite set to be active. otherwise un-active
+     * */
+    private fun checkMovieIsFavorite(movieId: Long) {
+        detailViewModel.checkMovieIsFavorite(movieId).observe(this) { movie ->
+            if (movie != null) {
+                binding.ivFavorite.setImageResource(R.drawable.ic_heart_active)
+                isMovieFavorite = true
+            } else {
+                binding.ivFavorite.setImageResource(R.drawable.ic_heart_unactive)
+            }
+        }
+    }
+
+
+    private fun initListener(movie: Movie) {
+        binding.apply {
+            //favorite listener
+            ivFavorite.setOnClickListener {
+                isMovieFavorite = if (isMovieFavorite) {
+                    //delete from favorite and set isMovieFavorite to false
+                    detailViewModel.unsetMovieFavorite(movie)
+                    ivFavorite.setImageResource(R.drawable.ic_heart_unactive)
+                    false
+                } else {
+                    //add to favorite and set isMovieFavorite to true
+                    detailViewModel.setMovieFavorite(movie)
+                    ivFavorite.setImageResource(R.drawable.ic_heart_active)
+                    true
+                }
+                showSnackBar(movie.movieTitle, isMovieFavorite)
+            }
         }
     }
 
@@ -37,30 +86,45 @@ class DetailMovieActivity : AppCompatActivity() {
      *
      * @param movie     data of movie
      * */
-    private fun populateDataDetail(movie: Movie){
+    private fun populateDataDetail(movie: Movie) {
         binding.apply {
             ivMoviePoster.load(movie.movieBackdrop)
             tvMovieTitle.text = movie.movieTitle
             tvMovieGenre.text = movie.movieGenre
             tvMovieLanguage.text = resources.getString(R.string.movie_language, movie.movieLanguage)
-            tvMoviePopularity.text = resources.getString(R.string.movie_popularity, movie.moviePopularity.toString())
-            tvMovieRelease.text = resources.getString(com.setianjay.watchme.core.R.string.release, movie.movieRelease)
+            tvMoviePopularity.text =
+                resources.getString(R.string.movie_popularity, movie.moviePopularity.toString())
+            tvMovieRelease.text =
+                resources.getString(com.setianjay.watchme.core.R.string.release, movie.movieRelease)
             rbMovie.rating = movie.movieRating.toFloat()
             tvRating.text = movie.movieRating.toString()
             tvMovieOverview.text = movie.movieOverview
         }
     }
 
-    companion object{
+    private fun showSnackBar(movieTitle: String, state: Boolean) {
+        val message = if (state) getHtmlSpannedString(
+            R.string.add_favorite,
+            movieTitle
+        ) else getHtmlSpannedString(R.string.remove_favorite, movieTitle)
+
+        val snackBar = Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+        snackBar.view.apply {
+            setBackgroundColor(ContextCompat.getColor(this@DetailMovieActivity, com.setianjay.watchme.core.R.color.light_blue))
+        }
+        snackBar.show()
+    }
+
+    companion object {
         private const val EXTRA_DETAIL = "extra_detail"
 
         /**
-         * to navigate to detail screen
+         * navigate to detail screen
          *
          * @param context   context
          * @param movie     data of movie
          * */
-        fun navigateToDetailMovieActivity(context: Context, movie: Movie): Intent{
+        fun navigateToDetailMovieActivity(context: Context, movie: Movie): Intent {
             return Intent(context, DetailMovieActivity::class.java).also {
                 it.putExtra(EXTRA_DETAIL, movie)
             }

@@ -1,5 +1,6 @@
 package com.setianjay.watchme.core.data.source.local
 
+import com.setianjay.watchme.core.data.source.local.persistence.model.MovieFavoriteEntity
 import com.setianjay.watchme.core.data.source.local.persistence.model.MovieNowPlayingEntity
 import com.setianjay.watchme.core.data.source.local.persistence.model.MoviePopularEntity
 import com.setianjay.watchme.core.data.source.local.persistence.room.MovieDao
@@ -9,6 +10,15 @@ import javax.inject.Singleton
 
 @Singleton
 class LocalMovieDataSourceImpl @Inject constructor(private val movieDao: MovieDao): LocalMovieDataSource {
+
+    override fun getMovieFavorite(movieId: Long): Flow<MovieFavoriteEntity?> {
+        return movieDao.getMovieFavorite(movieId)
+    }
+
+    override fun deleteMovieFavorite(movie: MovieFavoriteEntity) {
+        movieDao.deleteMovieFavorite(movie)
+    }
+
     override fun getAllMoviesNowPlaying(): Flow<List<MovieNowPlayingEntity>> {
         return movieDao.getAllMoviesNowPlaying()
     }
@@ -25,11 +35,15 @@ class LocalMovieDataSourceImpl @Inject constructor(private val movieDao: MovieDa
         return movieDao.getAllTvPopular()
     }
 
-    override suspend fun insertMovieNowPlaying(movies: List<MovieNowPlayingEntity>) {
-        movieDao.insertMovieNowPlaying(movies)
+    override fun insertMovieFavorite(movie: MovieFavoriteEntity) {
+        movieDao.insertMovieFavorite(movie)
     }
 
-    override suspend fun insertMoviePopular(movies: List<MoviePopularEntity>) {
-        movieDao.insertMoviePopular(movies)
+    override suspend fun insertMovieNowPlaying(movie: List<MovieNowPlayingEntity>) {
+        movieDao.insertMovieNowPlaying(movie)
+    }
+
+    override suspend fun insertMoviePopular(movie: List<MoviePopularEntity>) {
+        movieDao.insertMoviePopular(movie)
     }
 }

@@ -17,11 +17,18 @@ import javax.inject.Singleton
 @Singleton
 class MovieRepositoryImpl @Inject constructor(
     private val localMovieDataSource: LocalMovieDataSource,
-    private val remoteMovieDataSource: RemoteMovieDataSource
-    ): MovieRepository {
+    private val remoteMovieDataSource: RemoteMovieDataSource,
+    private val executors: AppExecutor
+) : MovieRepository {
+
+    override fun checkMovieIsFavorite(movieId: Long): Flow<Movie?> {
+        return localMovieDataSource.getMovieFavorite(movieId).map {
+            it?.toMovie()
+        }
+    }
 
     override fun getMoviesNowPlaying(): Flow<Resource<List<Movie>>> {
-        return object: NetworkBoundResource<List<Movie>, List<MoviesItem>>(){
+        return object : NetworkBoundResource<List<Movie>, List<MoviesItem>>() {
             override fun loadFromDb(): Flow<List<Movie>> {
                 return localMovieDataSource.getAllMoviesNowPlaying().map {
                     it.movieNowPlayingEntityToMovie()
@@ -45,7 +52,7 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override fun getMoviesPopular(): Flow<Resource<List<Movie>>> {
-        return object: NetworkBoundResource<List<Movie>, List<MoviesItem>>(){
+        return object : NetworkBoundResource<List<Movie>, List<MoviesItem>>() {
             override fun loadFromDb(): Flow<List<Movie>> {
                 return localMovieDataSource.getAllMoviesPopular().map {
                     it.moviePopularEntityToMovie()
@@ -92,7 +99,7 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override fun getTvPopular(): Flow<Resource<List<Movie>>> {
-        return object: NetworkBoundResource<List<Movie>, List<TvShowItem>>(){
+        return object : NetworkBoundResource<List<Movie>, List<TvShowItem>>() {
             override fun loadFromDb(): Flow<List<Movie>> {
                 return localMovieDataSource.getAllTvPopular().map {
                     it.moviePopularEntityToMovie()
@@ -113,5 +120,16 @@ class MovieRepositoryImpl @Inject constructor(
             }
 
         }.asFlow()
+    }
+
+    override fun setMovieFavorite(movie: Movie) {
+        val movieFavoriteEntity = movie.toFavoriteEntity()
+        executors.singleThread()
+            .execute { localMovieDataSource.insertMovieFavorite(movieFavoriteEntity) }
+    }
+
+    override fun unsetMovieFavorite(movie: Movie) {
+        val movieFavoriteEntity = movie.toFavoriteEntity()
+        executors.singleThread().execute { localMovieDataSource.deleteMovieFavorite(movieFavoriteEntity) }
     }
 }

@@ -7,6 +7,10 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MovieUseCaseImpl @Inject constructor(private val movieRepository: MovieRepository): MovieUseCase {
+    override fun checkMovieIsFavorite(movieId: Long): Flow<Movie?> {
+        return movieRepository.checkMovieIsFavorite(movieId)
+    }
+
     override fun getMoviesNowPlaying(): Flow<Resource<List<Movie>>> {
         return movieRepository.getMoviesNowPlaying()
     }
@@ -21,5 +25,13 @@ class MovieUseCaseImpl @Inject constructor(private val movieRepository: MovieRep
 
     override fun getTvPopular(): Flow<Resource<List<Movie>>> {
         return movieRepository.getTvPopular()
+    }
+
+    override fun setMovieFavorite(movie: Movie) {
+        movieRepository.setMovieFavorite(movie)
+    }
+
+    override fun unsetMovieFavorite(movie: Movie) {
+        movieRepository.unsetMovieFavorite(movie)
     }
 }

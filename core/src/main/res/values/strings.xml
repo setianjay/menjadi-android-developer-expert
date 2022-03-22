@@ -5,7 +5,6 @@
     <string name="icon_tab">tab icon</string>
     <string name="image_movie_poster">image movie poster</string>
     <string name="movies">Movies</string>
-    <string name="no_genre">No genre yet</string>
     <string name="release">Release: %s</string>
     <string name="tv">Tv Shows</string>
 

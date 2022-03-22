@@ -1,5 +1,6 @@
 package com.setianjay.watchme.core.utils
 
+import com.setianjay.watchme.core.data.source.local.persistence.model.MovieFavoriteEntity
 import com.setianjay.watchme.core.data.source.local.persistence.model.MovieNowPlayingEntity
 import com.setianjay.watchme.core.data.source.local.persistence.model.MoviePopularEntity
 import com.setianjay.watchme.core.data.source.remote.model.MoviesResponse.MoviesItem
@@ -147,4 +148,36 @@ fun List<TvShowItem>.tvShowItemToMoviePopularEntity(): List<MoviePopularEntity> 
             isMovies = false
         )
     }
+}
+
+fun MovieFavoriteEntity.toMovie(): Movie{
+    return Movie(
+        movieBackdrop = this.movieBackdrop ?: "",
+        movieGenre = this.movieGenre,
+        movieId = this.movieId,
+        movieLanguage = this.movieLanguage,
+        movieOverview = this.movieOverview,
+        moviePopularity = this.moviePopularity,
+        moviePoster = this.moviePoster ?: "",
+        movieRelease = this.movieRelease,
+        movieTitle = this.movieTitle,
+        movieRating = this.movieRating,
+        isMovies = this.isMovies
+    )
+}
+
+fun Movie.toFavoriteEntity(): MovieFavoriteEntity{
+    return MovieFavoriteEntity(
+        movieBackdrop = this.movieBackdrop,
+        movieGenre = this.movieGenre,
+        movieId = this.movieId,
+        movieLanguage = this.movieLanguage,
+        movieOverview = this.movieOverview,
+        moviePopularity = this.moviePopularity,
+        moviePoster = this.moviePoster,
+        movieRelease = this.movieRelease,
+        movieTitle = this.movieTitle,
+        movieRating = this.movieRating,
+        isMovies = this.isMovies
+    )
 }

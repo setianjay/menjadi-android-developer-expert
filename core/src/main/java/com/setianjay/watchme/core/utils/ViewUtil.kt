@@ -1,8 +1,12 @@
 package com.setianjay.watchme.core.utils
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.StringRes
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -72,4 +76,18 @@ object ViewUtil {
     fun View.show(isShowing: Boolean) {
         this.visibility = if (isShowing) View.VISIBLE else View.GONE
     }
+
+    /**
+     * to convert String to HtmlSpan
+     * */
+    private fun String.toHtmlSpan(): Spanned = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
+    } else {
+        Html.fromHtml(this)
+    }
+
+    /**
+     * to get string value on strings resource there is an html tag inside
+     * */
+    fun Context.getHtmlSpannedString(@StringRes id: Int, vararg formatArgs: Any): Spanned = getString(id, *formatArgs).toHtmlSpan()
 }

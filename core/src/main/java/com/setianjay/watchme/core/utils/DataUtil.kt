@@ -65,6 +65,10 @@ object DataUtil {
             }
         }
 
-        return genreStrBuilder.toString()
+        val result = genreStrBuilder.toString()
+
+        return result.ifEmpty {
+            "No genre yet"
+        }
     }
 }

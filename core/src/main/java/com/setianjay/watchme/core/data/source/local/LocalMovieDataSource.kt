@@ -1,19 +1,26 @@
 package com.setianjay.watchme.core.data.source.local
 
+import com.setianjay.watchme.core.data.source.local.persistence.model.MovieFavoriteEntity
 import com.setianjay.watchme.core.data.source.local.persistence.model.MovieNowPlayingEntity
 import com.setianjay.watchme.core.data.source.local.persistence.model.MoviePopularEntity
 import kotlinx.coroutines.flow.Flow
 
 interface LocalMovieDataSource {
-    fun getAllMoviesPopular(): Flow<List<MoviePopularEntity>>
+    fun getMovieFavorite(movieId: Long): Flow<MovieFavoriteEntity?>
 
-    fun getAllTvPopular(): Flow<List<MoviePopularEntity>>
+    fun deleteMovieFavorite(movie: MovieFavoriteEntity)
 
     fun getAllMoviesNowPlaying(): Flow<List<MovieNowPlayingEntity>>
 
     fun getAllTvNowPlaying(): Flow<List<MovieNowPlayingEntity>>
 
-    suspend fun insertMoviePopular(movies: List<MoviePopularEntity>)
+    fun getAllMoviesPopular(): Flow<List<MoviePopularEntity>>
 
-    suspend fun insertMovieNowPlaying(movies: List<MovieNowPlayingEntity>)
+    fun getAllTvPopular(): Flow<List<MoviePopularEntity>>
+
+    fun insertMovieFavorite(movie: MovieFavoriteEntity)
+
+    suspend fun insertMovieNowPlaying(movie: List<MovieNowPlayingEntity>)
+
+    suspend fun insertMoviePopular(movie: List<MoviePopularEntity>)
 }
