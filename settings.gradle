@@ -16,3 +16,4 @@ rootProject.name = "WatchMe"
 include ':app'
 include ':core'
 include ':favorite'
+include ':search'

@@ -1,8 +1,7 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.dynamic-feature'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 apply from: '../shared_dependencies.gradle'
@@ -11,15 +10,9 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.setianjay.watchme"
         minSdk 21
-        targetSdk 31
-        versionCode 1
-        versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -33,13 +26,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    dynamicFeatures = [':favorite', ':search']
 }
 
 dependencies {
-
+    implementation project(":app")
     implementation project(":core")
 }
