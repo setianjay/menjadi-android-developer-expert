@@ -44,7 +44,7 @@ class VerticalMovieAdapter(private val context: Context, private val listener: O
             binding.apply {
                 ivMoviePoster.load(movie.movieBackdrop)
                 tvMovieTitle.text = movie.movieTitle
-                tvMovieGenre.text = movie.movieGenre
+                tvMovieGenre.text = movie.movieGenre.ifEmpty { context.resources.getString(R.string.no_genre) }
                 tvMovieRelease.text = context.resources.getString(
                     R.string.release,
                     FormatUtil.changeDateFormat(movie.movieRelease)

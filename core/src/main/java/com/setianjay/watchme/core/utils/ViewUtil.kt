@@ -11,8 +11,14 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.tabs.TabLayout
 import com.setianjay.watchme.core.R
 import com.setianjay.watchme.core.constants.RemoteConst
+import com.setianjay.watchme.core.presentation.adapter.tab.BaseViewTabAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 object ViewUtil {
 
@@ -41,6 +47,7 @@ object ViewUtil {
             .apply(RequestOptions.centerCropTransform())
             .placeholder(createCircularProgressDrawable(this.context))
             .transition(DrawableTransitionOptions.withCrossFade())
+            .error(R.drawable.ic_no_image)
             .into(this)
     }
 
@@ -51,21 +58,13 @@ object ViewUtil {
      * note:            the placeholder using image
      * */
     fun ImageView.load(image: String) {
-        if(image.isEmpty()){
-            Glide.with(this.context)
-                .load(image)
-                .apply(RequestOptions.centerCropTransform())
-                .placeholder(R.drawable.ic_no_image)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(this)
-        }else{
-            Glide.with(this.context)
+        Glide.with(this.context)
                 .load(RemoteConst.IMAGE_URL_ORIGINAL + image)
                 .apply(RequestOptions.centerCropTransform())
                 .placeholder(R.drawable.ic_movie_placeholder)
                 .transition(DrawableTransitionOptions.withCrossFade())
+                .error(R.drawable.ic_no_image)
                 .into(this)
-        }
     }
 
     /**
@@ -90,4 +89,31 @@ object ViewUtil {
      * to get string value on strings resource there is an html tag inside
      * */
     fun Context.getHtmlSpannedString(@StringRes id: Int, vararg formatArgs: Any): Spanned = getString(id, *formatArgs).toHtmlSpan()
+
+    /**
+     * to create custom selected tab
+     *
+     * @param position          indicate as current position of tab
+     * @param viewTabAdapter    adapter for view pager
+     * */
+    fun TabLayout.customSelectedTab(position: Int, viewTabAdapter: BaseViewTabAdapter){
+        CoroutineScope(Dispatchers.Default).launch {
+            //loop based on tab count on tab layout
+            for (i in 0 until this@customSelectedTab.tabCount) {
+                withContext(Dispatchers.Main) {
+                    val tab = this@customSelectedTab.getTabAt(i)
+                    //if i same with param position, selected active. otherwise selected un-active
+                    if (i == position) {
+                        tab?.customView = null
+                        tab?.customView = viewTabAdapter.viewTabSelected(i)
+                    } else {
+                        this@customSelectedTab.getTabAt(i).apply {
+                            tab?.customView = null
+                            tab?.customView = viewTabAdapter.viewTabUnselected(i)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

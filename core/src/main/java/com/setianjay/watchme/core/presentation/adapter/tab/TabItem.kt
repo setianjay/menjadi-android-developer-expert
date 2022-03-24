@@ -1,4 +1,4 @@
-package com.setianjay.watchme.presentation.home.adapter.tab
+package com.setianjay.watchme.core.presentation.adapter.tab
 
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment

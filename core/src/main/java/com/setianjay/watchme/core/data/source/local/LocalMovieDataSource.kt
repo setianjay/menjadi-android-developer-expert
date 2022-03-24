@@ -10,6 +10,8 @@ interface LocalMovieDataSource {
 
     fun deleteMovieFavorite(movie: MovieFavoriteEntity)
 
+    fun getAllMovieFavorite(isMovies: Boolean): Flow<List<MovieFavoriteEntity>>
+
     fun getAllMoviesNowPlaying(): Flow<List<MovieNowPlayingEntity>>
 
     fun getAllTvNowPlaying(): Flow<List<MovieNowPlayingEntity>>

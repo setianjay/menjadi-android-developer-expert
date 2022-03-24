@@ -8,7 +8,30 @@ import com.setianjay.watchme.core.data.source.remote.model.TvResponse.TvShowItem
 import com.setianjay.watchme.core.domain.model.Movie
 
 /**
- * convert [MovieNowPlayingEntity] (local model) to [Movie] (use case model) for showing data
+ * convert list of [MovieFavoriteEntity] (local model) to list of [Movie] (use case model) for showing data
+ *
+ * @return      list of [Movie] (use case model)
+ * */
+fun List<MovieFavoriteEntity>.movieFavoriteEntityToMovie(): List<Movie>{
+    return this.map { movieFavoriteEntity ->
+        Movie(
+            movieBackdrop = movieFavoriteEntity.movieBackdrop ?: "",
+            movieGenre = movieFavoriteEntity.movieGenre,
+            movieId = movieFavoriteEntity.movieId,
+            movieLanguage = movieFavoriteEntity.movieLanguage,
+            movieOverview = movieFavoriteEntity.movieOverview,
+            moviePopularity = movieFavoriteEntity.moviePopularity,
+            moviePoster = movieFavoriteEntity.moviePoster ?: "",
+            movieRelease = movieFavoriteEntity.movieRelease,
+            movieTitle = movieFavoriteEntity.movieTitle,
+            movieRating = movieFavoriteEntity.movieRating,
+            isMovies = movieFavoriteEntity.isMovies
+        )
+    }
+}
+
+/**
+ * convert list of [MovieNowPlayingEntity] (local model) to list of [Movie] (use case model) for showing data
  *
  * @return      list of [Movie] (use case model)
  * */
@@ -31,7 +54,7 @@ fun List<MovieNowPlayingEntity>.movieNowPlayingEntityToMovie(): List<Movie> {
 }
 
 /**
- * convert [MoviePopularEntity] (local model) to [Movie] (use case model) for showing data
+ * convert list of [MoviePopularEntity] (local model) to list of [Movie] (use case model) for showing data
  *
  * @return      list of [Movie] (use case model)
  * */

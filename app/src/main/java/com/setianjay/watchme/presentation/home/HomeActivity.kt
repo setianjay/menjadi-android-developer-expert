@@ -3,23 +3,21 @@ package com.setianjay.watchme.presentation.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.setianjay.watchme.R
 import com.setianjay.watchme.core.data.Resource
 import com.setianjay.watchme.core.domain.model.Movie
 import com.setianjay.watchme.core.presentation.adapter.OnMovieAdapterListener
+import com.setianjay.watchme.core.utils.ViewUtil.customSelectedTab
 import com.setianjay.watchme.core.utils.ViewUtil.show
 import com.setianjay.watchme.databinding.ActivityHomeBinding
 import com.setianjay.watchme.presentation.detail.DetailMovieActivity
 import com.setianjay.watchme.presentation.home.adapter.slider.ViewSliderHomeAdapter
 import com.setianjay.watchme.presentation.home.adapter.tab.ViewTabHomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -37,7 +35,6 @@ class HomeActivity : AppCompatActivity() {
         setupViewPagerSlider()
         setupViewTabMain()
         setupSelectedCustomTab()
-        Timber.d("onCreate called")
     }
 
     /**
@@ -53,7 +50,6 @@ class HomeActivity : AppCompatActivity() {
                     )
                 )
             }
-
         })
         binding.vpSlider.adapter = viewPagerSliderHomeAdapter
     }
@@ -80,32 +76,17 @@ class HomeActivity : AppCompatActivity() {
     }
 
     /**
-     * function to handle selected tab in tab-layout
+     * function to create custom selected tab in tab-layout
      *
      * @param position      number of position the current tab
      * */
     private fun setupSelectedCustomTab(position: Int = 0) {
-        CoroutineScope(Dispatchers.Default).launch {
-            //loop based on tab count on tab layout
-            for (i in 0 until binding.tlMain.tabCount) {
-                withContext(Dispatchers.Main) {
-                    //if i same with param position, selected active. otherwise selected un-active
-                    if (i == position) {
-                        binding.tlMain.getTabAt(i).apply {
-                            this?.customView = null
-                            this?.customView = viewTabHomeAdapter.viewTabSelected(i)
-                        }
-                    } else {
-                        binding.tlMain.getTabAt(i).apply {
-                            this?.customView = null
-                            this?.customView = viewTabHomeAdapter.viewTabUnselected(i)
-                        }
-                    }
-                }
-            }
-        }
+        binding.tlMain.customSelectedTab(position, viewTabHomeAdapter)
     }
 
+    /**
+     * setup observer for observe value from view model
+     * */
     private fun setupObserver() {
         homeViewModel.getMovieSlider().observe(this) { result ->
             when (result) {
@@ -125,8 +106,36 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * create custom menu
+     * */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)
-        return super.onCreateOptionsMenu(menu)
+        return true
+    }
+
+    /**
+     * function to handle when menu item has clicked
+     * */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_menu_favorite -> {
+                try {
+                    Intent(
+                        this,
+                        Class.forName("com.setianjay.watchme.favorite.presentation.FavoriteActivity")
+                    ).also {
+                        startActivity(it)
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this, getString(R.string.module_not_found), Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+            R.id.action_menu_settings -> {
+                Toast.makeText(this, getString(R.string.settings), Toast.LENGTH_SHORT).show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

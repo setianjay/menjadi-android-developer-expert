@@ -27,6 +27,12 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getMoviesFavorite(): Flow<List<Movie>> {
+        return localMovieDataSource.getAllMovieFavorite(true).map {
+            it.movieFavoriteEntityToMovie()
+        }
+    }
+
     override fun getMoviesNowPlaying(): Flow<Resource<List<Movie>>> {
         return object : NetworkBoundResource<List<Movie>, List<MoviesItem>>() {
             override fun loadFromDb(): Flow<List<Movie>> {
@@ -73,6 +79,12 @@ class MovieRepositoryImpl @Inject constructor(
             }
 
         }.asFlow()
+    }
+
+    override fun getTvFavorite(): Flow<List<Movie>> {
+        return localMovieDataSource.getAllMovieFavorite(false).map {
+            it.movieFavoriteEntityToMovie()
+        }
     }
 
     override fun getTvNowPlaying(): Flow<Resource<List<Movie>>> {

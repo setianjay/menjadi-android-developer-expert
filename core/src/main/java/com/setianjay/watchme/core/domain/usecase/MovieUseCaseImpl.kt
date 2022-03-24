@@ -11,12 +11,20 @@ class MovieUseCaseImpl @Inject constructor(private val movieRepository: MovieRep
         return movieRepository.checkMovieIsFavorite(movieId)
     }
 
+    override fun getMoviesFavorite(): Flow<List<Movie>> {
+        return movieRepository.getMoviesFavorite()
+    }
+
     override fun getMoviesNowPlaying(): Flow<Resource<List<Movie>>> {
         return movieRepository.getMoviesNowPlaying()
     }
 
     override fun getMoviesPopular(): Flow<Resource<List<Movie>>> {
         return movieRepository.getMoviesPopular()
+    }
+
+    override fun getTvFavorite(): Flow<List<Movie>> {
+        return movieRepository.getTvFavorite()
     }
 
     override fun getTvNowPlaying(): Flow<Resource<List<Movie>>> {

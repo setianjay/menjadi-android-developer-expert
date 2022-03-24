@@ -9,6 +9,14 @@
         <dist:delivery>
             <dist:install-time />
         </dist:delivery>
+
         <dist:fusing dist:include="true" />
     </dist:module>
+
+    <application>
+        <activity
+            android:name=".presentation.FavoriteActivity"
+            android:parentActivityName="com.setianjay.watchme.presentation.home.HomeActivity"/>
+    </application>
+
 </manifest>

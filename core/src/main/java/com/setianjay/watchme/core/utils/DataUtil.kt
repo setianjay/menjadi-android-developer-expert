@@ -43,7 +43,7 @@ object DataUtil {
      * get genre based on genre id
      *
      * @param   genreIds        list of genre id
-     * @return  [String]        genres string, eg. Adventure, Drama, Action
+     * @return  [String]        genres string, eg. Adventure, Drama, Action or empty string ""
      * */
     fun getGenres(genreIds: List<Int>): String {
         val genreStrBuilder = StringBuilder()
@@ -65,10 +65,6 @@ object DataUtil {
             }
         }
 
-        val result = genreStrBuilder.toString()
-
-        return result.ifEmpty {
-            "No genre yet"
-        }
+        return genreStrBuilder.toString()
     }
 }

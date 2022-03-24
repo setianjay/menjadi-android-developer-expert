@@ -6,8 +6,11 @@
     <string name="hint_search">Search here</string>
     <string name="icon_favorite">favorite movie</string>
     <string name="image_slider">image slider</string>
+    <string name="module_not_found">Module not found</string>
     <string name="movie_language">Language: %s</string>
     <string name="movie_popularity">Language: %s</string>
+    <string name="no_genre">No genre yet</string>
+    <string name="no_overview">No overview yet</string>
     <string name="now_playing">Now Playing</string>
     <string name="overview">Overview</string>
     <string name="popular">Popular</string>

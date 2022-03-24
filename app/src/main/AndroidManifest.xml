@@ -12,10 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WatchMe">
-        <activity
-            android:name=".presentation.detail.DetailMovieActivity"
-            android:exported="true"
-            android:parentActivityName=".presentation.home.HomeActivity" />
+        <activity android:name=".presentation.detail.DetailMovieActivity" />
         <activity
             android:name=".presentation.SplashActivity"
             android:exported="true"
@@ -28,8 +25,7 @@
         </activity>
         <activity
             android:name=".presentation.home.HomeActivity"
-            android:launchMode="singleTop"
-            android:exported="true" />
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

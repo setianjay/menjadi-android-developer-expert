@@ -19,6 +19,10 @@ class LocalMovieDataSourceImpl @Inject constructor(private val movieDao: MovieDa
         movieDao.deleteMovieFavorite(movie)
     }
 
+    override fun getAllMovieFavorite(isMovies: Boolean): Flow<List<MovieFavoriteEntity>> {
+        return movieDao.getAllMovieFavorite(isMovies)
+    }
+
     override fun getAllMoviesNowPlaying(): Flow<List<MovieNowPlayingEntity>> {
         return movieDao.getAllMoviesNowPlaying()
     }
