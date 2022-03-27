@@ -1,4 +1,4 @@
-package com.setianjay.watchme.utils
+package com.setianjay.watchme.favorite.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

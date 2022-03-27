@@ -15,7 +15,7 @@ import com.setianjay.watchme.di.module.FavoriteModuleDependencies
 import com.setianjay.watchme.favorite.databinding.FragmentFavoriteMovieBinding
 import com.setianjay.watchme.favorite.di.DaggerFavoriteComponent
 import com.setianjay.watchme.presentation.detail.DetailMovieActivity
-import com.setianjay.watchme.utils.ViewModelFactory
+import com.setianjay.watchme.favorite.utils.ViewModelFactory
 import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
