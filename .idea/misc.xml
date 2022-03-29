@@ -42,6 +42,7 @@
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/layout/item_movie_vertical.xml" value="0.2006340579710145" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/layout/layout_error.xml" value="0.152" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/layout/layout_loading.xml" value="0.19384057971014493" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/layout/layout_network_error.xml" value="0.25416666666666665" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/core/src/main/res/layout/tab_custom.xml" value="0.25416666666666665" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/favorite/src/main/res/layout/activity_favorite.xml" value="0.1" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/favorite/src/main/res/layout/fragment_favorite_movie.xml" value="0.264" />
@@ -50,8 +51,8 @@
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/main/src/main/res/layout/activity_splash.xml" value="0.2" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/search/src/main/res/drawable/bg_rounded_soft_gray.xml" value="0.1" />
         <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/search/src/main/res/layout/activity_search.xml" value="0.2" />
-        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/search/src/main/res/layout/item_search_result.xml" value="0.4" />
-        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/search/src/main/res/layout/layout_search_empty.xml" value="0.264" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/search/src/main/res/layout/item_search_result.xml" value="0.1" />
+        <entry key="..\:/Budel/Dicoding/MADE/project/WatchMe/search/src/main/res/layout/layout_search_empty.xml" value="0.1" />
       </map>
     </option>
   </component>

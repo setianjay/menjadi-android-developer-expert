@@ -1,7 +1,6 @@
 package com.setianjay.watchme.core.domain.repository
 
 import com.setianjay.watchme.core.data.Resource
-import com.setianjay.watchme.core.data.source.local.persistence.model.MovieFavoriteEntity
 import com.setianjay.watchme.core.domain.model.Movie
 import kotlinx.coroutines.flow.Flow
 

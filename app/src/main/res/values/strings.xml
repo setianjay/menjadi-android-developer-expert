@@ -9,16 +9,10 @@
     <string name="module_not_found">Module not found</string>
     <string name="movie_language">Language: %s</string>
     <string name="movie_popularity">Language: %s</string>
-    <string name="no_genre">No genre yet</string>
-    <string name="no_overview">No overview yet</string>
     <string name="now_playing">Now Playing</string>
     <string name="overview">Overview</string>
     <string name="popular">Popular</string>
     <string name="settings">Settings under development</string>
     <string name="add_favorite"><![CDATA[Add <b><i>%s<i/></b> to favorite]]></string>
     <string name="remove_favorite"><![CDATA[Remove <b><i>%s</i></b> from favorite]]></string>
-    <string name="title_favorite">Favorite</string>
-    <string name="title_search">Search</string>
-    <string name="image_refresh">Image Refresh</string>
-    <string name="refresh">Refresh</string>
 </resources>

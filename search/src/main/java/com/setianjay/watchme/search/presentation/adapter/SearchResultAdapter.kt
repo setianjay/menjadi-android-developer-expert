@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.setianjay.watchme.core.domain.model.Movie
 import com.setianjay.watchme.core.presentation.adapter.OnMovieAdapterListener
-import com.setianjay.watchme.core.utils.FormatUtil
 import com.setianjay.watchme.core.utils.ViewUtil.load
 import com.setianjay.watchme.search.databinding.ItemSearchResultBinding
 
