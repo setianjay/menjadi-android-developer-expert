@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.setianjay.watchme.core.R
 import com.setianjay.watchme.core.databinding.ItemMovieVerticalBinding
 import com.setianjay.watchme.core.domain.model.Movie
-import com.setianjay.watchme.core.utils.FormatUtil
 import com.setianjay.watchme.core.utils.ViewUtil.load
 
 class VerticalMovieAdapter(private val context: Context, private val listener: OnMovieAdapterListener) :
@@ -44,10 +43,10 @@ class VerticalMovieAdapter(private val context: Context, private val listener: O
             binding.apply {
                 ivMoviePoster.load(movie.movieBackdrop)
                 tvMovieTitle.text = movie.movieTitle
-                tvMovieGenre.text = movie.movieGenre.ifEmpty { context.resources.getString(R.string.no_genre) }
+                tvMovieGenre.text = movie.movieGenre
                 tvMovieRelease.text = context.resources.getString(
                     R.string.release,
-                    FormatUtil.changeDateFormat(movie.movieRelease)
+                    movie.movieRelease
                 )
                 rbMovie.rating = movie.movieRating.toFloat()
                 tvRating.text = movie.movieRating.toString()

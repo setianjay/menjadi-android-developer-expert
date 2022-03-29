@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="field_required">Field cannot be empty</string>
+    <string name="hint_search_movies">Search movies here</string>
+    <string name="hint_search_tv">Search tv here</string>
+    <string name="no_search_result">No search result</string>
+    <string name="make_sure_the_movie_title_is_correct">Make sure the movie title is correct</string>
+    <string name="image_information_result_empty">Image Information Result Empty</string>
+</resources>

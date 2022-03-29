@@ -31,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        initListener()
         setupObserver()
         setupViewPagerSlider()
         setupViewTabMain()
@@ -106,6 +107,26 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun initListener(){
+        //when search section has clicked
+        binding.llSearch.setOnClickListener {
+            //if zero = movies, otherwise tv
+            val currentTabPosition = binding.tlMain.selectedTabPosition
+            try {
+                Intent(
+                    this,
+                    Class.forName("com.setianjay.watchme.search.presentation.SearchActivity")
+                ).also {
+                    it.putExtra(SEARCH_EXTRA, currentTabPosition)
+                    startActivity(it)
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this, getString(R.string.module_not_found), Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
     /**
      * create custom menu
      * */
@@ -119,6 +140,7 @@ class HomeActivity : AppCompatActivity() {
      * */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            //when menu favorite has selected
             R.id.action_menu_favorite -> {
                 try {
                     Intent(
@@ -132,10 +154,16 @@ class HomeActivity : AppCompatActivity() {
                         .show()
                 }
             }
+            //when menu settings has selected
             R.id.action_menu_settings -> {
                 Toast.makeText(this, getString(R.string.settings), Toast.LENGTH_SHORT).show()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object{
+        //key for sending value to search module
+        const val SEARCH_EXTRA = "search_extra"
     }
 }

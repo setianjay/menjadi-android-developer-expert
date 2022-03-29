@@ -23,19 +23,19 @@ object FormatUtil {
      * @param   strDate         string of date in format yyyy-MM-dd
      * @return                  string of date in format dd MMMM yyyy
      * */
-    fun changeDateFormat(strDate: String): String {
+    fun changeDateFormat(strDate: String?): String {
+        var resultDate = ""
 
-        val resultDate: String =  try {
-            val oldFormat = SimpleDateFormat(DEFAULT_FORMAT, Locale.getDefault())
+        if (strDate == null || strDate.isEmpty()) {
+            return DEFAULT_DATE
+        }
+
+        try {
+            val oldFormat = SimpleDateFormat(DEFAULT_FORMAT, Locale.ENGLISH)
             val oldDate = oldFormat.parse(strDate)
 
-            return if (oldDate != null) {
-                val newFormat = SimpleDateFormat(RESULT_FORMAT, Locale.getDefault())
-                newFormat.format(oldDate)
-            } else {
-                DEFAULT_DATE
-            }
-
+            val newFormat = SimpleDateFormat(RESULT_FORMAT, Locale.ENGLISH)
+            resultDate = if (oldDate != null) newFormat.format(oldDate) else DEFAULT_DATE
         } catch (e: Exception) {
             when (e) {
                 is ParseException -> {
@@ -47,9 +47,7 @@ object FormatUtil {
                     e.printStackTrace()
                 }
             }
-            DEFAULT_DATE
         }
-
         return resultDate
     }
 }

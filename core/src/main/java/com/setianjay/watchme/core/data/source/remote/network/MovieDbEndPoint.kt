@@ -27,4 +27,22 @@ interface MovieDbEndPoint {
      * */
     @GET("tv/{tv_type}")
     suspend fun getTvs(@Path("tv_type") tvType: String, @Query("api_key") apiKey: String = API_KEY): TvResponse
+
+    /**
+     * search data movie based on query
+     *
+     * @param query                     query means movie title
+     * @param apiKey                    api key. value of api key has default value
+     * */
+    @GET("search/movie")
+    suspend fun searchMovies(@Query("query") query: String, @Query("api_key") apiKey: String = API_KEY): MoviesResponse
+
+    /**
+     * search data tv based on query
+     *
+     * @param query                     query means tv title
+     * @param apiKey                    api key. value of api key has default value
+     * */
+    @GET("search/tv")
+    suspend fun searchTv(@Query("query") query: String, @Query("api_key") apiKey: String = API_KEY): TvResponse
 }

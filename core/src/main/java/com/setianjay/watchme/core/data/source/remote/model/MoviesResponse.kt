@@ -12,7 +12,7 @@ data class MoviesResponse(
 ){
     data class MoviesItem(
         @SerializedName("backdrop_path")
-        val moviesBackdrop: String,
+        val moviesBackdrop: String?,
 
         @SerializedName("genre_ids")
         val moviesGenreIds: List<Int>,
@@ -30,7 +30,7 @@ data class MoviesResponse(
         val moviesPopularity: Double,
 
         @SerializedName("poster_path")
-        val moviesPoster: String,
+        val moviesPoster: String?,
 
         @SerializedName("release_date")
         val moviesRelease: String,

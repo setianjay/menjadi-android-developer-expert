@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "tbl_movie_popular")
 data class MoviePopularEntity (
     @ColumnInfo(name = "movie_backdrop")
-    val movieBackdrop: String?,
+    val movieBackdrop: String,
 
     @ColumnInfo(name = "movie_genres")
     val movieGenre: String,
@@ -33,7 +33,7 @@ data class MoviePopularEntity (
 
     @ColumnInfo(name = "movie_poster")
     @NonNull
-    val moviePoster: String?,
+    val moviePoster: String,
 
     @ColumnInfo(name = "movie_release")
     val movieRelease: String,

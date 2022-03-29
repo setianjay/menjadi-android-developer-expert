@@ -3,7 +3,7 @@ package com.setianjay.watchme.core.utils
 object DataUtil {
 
     /**
-     * list of map genres
+     * list of map genres (hardcode)
      *
      * @return [Map]        list of map genre
      * */
@@ -40,14 +40,18 @@ object DataUtil {
     }
 
     /**
-     * get genre based on genre id
+     * get genre based on list genre id
      *
      * @param   genreIds        list of genre id
      * @return  [String]        genres string, eg. Adventure, Drama, Action or empty string ""
      * */
-    fun getGenres(genreIds: List<Int>): String {
+    fun getGenreByListId(genreIds: List<Int>): String {
         val genreStrBuilder = StringBuilder()
         val genres = genres()
+
+        if(genreIds.isEmpty()){
+            return "No genre yet"
+        }
 
         loopI@ for (i in genreIds.indices) {
             loopJ@ for ((id, value) in genres) {

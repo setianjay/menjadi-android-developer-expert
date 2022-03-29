@@ -5,6 +5,10 @@ object RemoteConst {
     /* BASE URL */
     const val BASE_URL = "https://api.themoviedb.org/3/"
 
+    /* ERROR CODE */
+    const val ERR_CODE_API = -1
+    const val ERR_CODE_EMPTY = -2
+
     /* IMAGE URL */
     const val IMAGE_URL_ORIGINAL = "https://image.tmdb.org/t/p/original"
 

@@ -17,4 +17,6 @@
     <string name="dummy_rating">9.0</string>
     <string name="dummy_release">Release: 20 March 2022</string>
     <string name="dummy_title">Spider-Man: No Way Home</string>
+    <string name="image_refresh">Image Refresh</string>
+    <string name="refresh">Refresh</string>
 </resources>

@@ -19,6 +19,10 @@ interface MovieUseCase {
 
     fun getTvPopular(): Flow<Resource<List<Movie>>>
 
+    fun searchMoviesByTitle(title: String): Flow<Resource<List<Movie>>>
+
+    fun searchTvByTitle(title: String): Flow<Resource<List<Movie>>>
+
     fun setMovieFavorite(movie: Movie)
 
     fun unsetMovieFavorite(movie: Movie)

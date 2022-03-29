@@ -93,7 +93,7 @@ class DetailMovieActivity : AppCompatActivity() {
         binding.apply {
             ivMoviePoster.load(movie.movieBackdrop)
             tvMovieTitle.text = movie.movieTitle
-            tvMovieGenre.text = movie.movieGenre.ifEmpty { resources.getString(R.string.no_genre) }
+            tvMovieGenre.text = movie.movieGenre
             tvMovieLanguage.text = resources.getString(R.string.movie_language, movie.movieLanguage)
             tvMoviePopularity.text =
                 resources.getString(R.string.movie_popularity, movie.moviePopularity.toString())
@@ -102,7 +102,7 @@ class DetailMovieActivity : AppCompatActivity() {
             rbMovie.rating = movie.movieRating.toFloat()
             tvRating.text = movie.movieRating.toString()
             tvMovieOverview.text =
-                movie.movieOverview.ifEmpty { resources.getString(R.string.no_overview) }
+                movie.movieOverview
         }
     }
 

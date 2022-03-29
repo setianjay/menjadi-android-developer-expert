@@ -12,7 +12,7 @@ data class TvResponse(
 ) {
     data class TvShowItem(
         @SerializedName("backdrop_path")
-        val tvShowBackdrop: String,
+        val tvShowBackdrop: String?,
 
         @SerializedName("first_air_date")
         val tvShowRelease: String,
@@ -36,7 +36,7 @@ data class TvResponse(
         val tvShowPopularity: Double,
 
         @SerializedName("poster_path")
-        val tvShowPoster: String,
+        val tvShowPoster: String?,
 
         @SerializedName("vote_average")
         val tvShowRating: Double

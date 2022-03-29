@@ -10,6 +10,8 @@ import com.setianjay.watchme.core.domain.model.Movie
 import com.setianjay.watchme.core.domain.repository.MovieRepository
 import com.setianjay.watchme.core.utils.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -134,6 +136,45 @@ class MovieRepositoryImpl @Inject constructor(
         }.asFlow()
     }
 
+    override fun searchMoviesByTitle(title: String): Flow<Resource<List<Movie>>> {
+        return flow {
+            emit(Resource.Loading())
+            emitAll(remoteMovieDataSource.searchMovies(title).map { response ->
+                when (response) {
+                    is ApiResponse.Success -> {
+                        Resource.Success(response.data.moviesItemToMovie())
+                    }
+                    is ApiResponse.Error -> {
+                        Resource.Error(response.errorCode)
+                    }
+                    else -> {
+                        Resource.Error(RemoteConst.ERR_CODE_EMPTY)
+                    }
+                }
+            })
+        }
+
+    }
+
+    override fun searchTvByTitle(title: String): Flow<Resource<List<Movie>>> {
+        return flow {
+            emit(Resource.Loading())
+            emitAll(remoteMovieDataSource.searchTv(title).map { response ->
+                when (response) {
+                    is ApiResponse.Success -> {
+                        Resource.Success(response.data.tvShowItemToMovie())
+                    }
+                    is ApiResponse.Error -> {
+                        Resource.Error(response.errorCode)
+                    }
+                    else -> {
+                        Resource.Error(RemoteConst.ERR_CODE_EMPTY)
+                    }
+                }
+            })
+        }
+    }
+
     override fun setMovieFavorite(movie: Movie) {
         val movieFavoriteEntity = movie.toFavoriteEntity()
         executors.singleThread()
@@ -142,6 +183,7 @@ class MovieRepositoryImpl @Inject constructor(
 
     override fun unsetMovieFavorite(movie: Movie) {
         val movieFavoriteEntity = movie.toFavoriteEntity()
-        executors.singleThread().execute { localMovieDataSource.deleteMovieFavorite(movieFavoriteEntity) }
+        executors.singleThread()
+            .execute { localMovieDataSource.deleteMovieFavorite(movieFavoriteEntity) }
     }
 }
