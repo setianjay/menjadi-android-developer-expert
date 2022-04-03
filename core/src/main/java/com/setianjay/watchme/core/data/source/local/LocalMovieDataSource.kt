@@ -12,13 +12,9 @@ interface LocalMovieDataSource {
 
     fun getAllMovieFavorite(isMovies: Boolean): Flow<List<MovieFavoriteEntity>>
 
-    fun getAllMoviesNowPlaying(): Flow<List<MovieNowPlayingEntity>>
+    fun getAllMovieNowPlaying(isMovies: Boolean): Flow<List<MovieNowPlayingEntity>>
 
-    fun getAllTvNowPlaying(): Flow<List<MovieNowPlayingEntity>>
-
-    fun getAllMoviesPopular(): Flow<List<MoviePopularEntity>>
-
-    fun getAllTvPopular(): Flow<List<MoviePopularEntity>>
+    fun getAllMoviePopular(isMovies: Boolean): Flow<List<MoviePopularEntity>>
 
     fun insertMovieFavorite(movie: MovieFavoriteEntity)
 

@@ -10,36 +10,22 @@ import kotlinx.coroutines.flow.Flow
 interface MovieDao {
 
     /**
-     * get all movies now playing in tbl_movie_now_playing
+     * get all movie now playing in tbl_movie_now_playing
      *
-     * note : 1 is true, true means for getting data movies
+     * @param isMovies      true for movies now playing, otherwise is tv now playing
+     * @return              list movie now playing
      * */
-    @Query("SELECT * FROM tbl_movie_now_playing WHERE is_movies = 1")
-    fun getAllMoviesNowPlaying(): Flow<List<MovieNowPlayingEntity>>
+    @Query("SELECT * FROM tbl_movie_now_playing WHERE is_movies = :isMovies")
+    fun getAllMovieNowPlaying(isMovies: Boolean): Flow<List<MovieNowPlayingEntity>>
 
     /**
-     * get all tv show now playing in tbl_movie_now_playing
+     * get all movie popular in tbl_movie_popular
      *
-     * note : 0 is false, false means for getting data tv show
+     * @param isMovies      true for movies popular, otherwise is tv popular
+     * @return              list movie popular
      * */
-    @Query("SELECT * FROM tbl_movie_now_playing WHERE is_movies = 0")
-    fun getAllTvNowPlaying(): Flow<List<MovieNowPlayingEntity>>
-
-    /**
-     * get all movies popular in tbl_movie_popular
-     *
-     * note : 1 is true, true means for getting data movies
-     * */
-    @Query("SELECT * FROM tbl_movie_popular WHERE is_movies = 1")
-    fun getAllMoviesPopular(): Flow<List<MoviePopularEntity>>
-
-    /**
-     * get all tv show popular in tbl_movie_popular
-     *
-     * note : 0 is false, false means for getting data tv show
-     * */
-    @Query("SELECT * FROM tbl_movie_popular WHERE is_movies = 0")
-    fun getAllTvPopular(): Flow<List<MoviePopularEntity>>
+    @Query("SELECT * FROM tbl_movie_popular WHERE is_movies = :isMovies")
+    fun getAllMoviePopular(isMovies: Boolean): Flow<List<MoviePopularEntity>>
 
     /**
      * insert data to tbl_movie_now_playing

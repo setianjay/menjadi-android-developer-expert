@@ -23,20 +23,12 @@ class LocalMovieDataSourceImpl @Inject constructor(private val movieDao: MovieDa
         return movieDao.getAllMovieFavorite(isMovies)
     }
 
-    override fun getAllMoviesNowPlaying(): Flow<List<MovieNowPlayingEntity>> {
-        return movieDao.getAllMoviesNowPlaying()
+    override fun getAllMovieNowPlaying(isMovies: Boolean): Flow<List<MovieNowPlayingEntity>> {
+        return movieDao.getAllMovieNowPlaying(isMovies)
     }
 
-    override fun getAllTvNowPlaying(): Flow<List<MovieNowPlayingEntity>> {
-        return movieDao.getAllTvNowPlaying()
-    }
-
-    override fun getAllMoviesPopular(): Flow<List<MoviePopularEntity>> {
-        return movieDao.getAllMoviesPopular()
-    }
-
-    override fun getAllTvPopular(): Flow<List<MoviePopularEntity>> {
-        return movieDao.getAllTvPopular()
+    override fun getAllMoviePopular(isMovies: Boolean): Flow<List<MoviePopularEntity>> {
+        return movieDao.getAllMoviePopular(isMovies)
     }
 
     override fun insertMovieFavorite(movie: MovieFavoriteEntity) {

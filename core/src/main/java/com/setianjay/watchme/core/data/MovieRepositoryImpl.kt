@@ -38,7 +38,7 @@ class MovieRepositoryImpl @Inject constructor(
     override fun getMoviesNowPlaying(): Flow<Resource<List<Movie>>> {
         return object : NetworkBoundResource<List<Movie>, List<MoviesItem>>() {
             override fun loadFromDb(): Flow<List<Movie>> {
-                return localMovieDataSource.getAllMoviesNowPlaying().map {
+                return localMovieDataSource.getAllMovieNowPlaying(true).map {
                     it.movieNowPlayingEntityToMovie()
                 }
             }
@@ -62,7 +62,7 @@ class MovieRepositoryImpl @Inject constructor(
     override fun getMoviesPopular(): Flow<Resource<List<Movie>>> {
         return object : NetworkBoundResource<List<Movie>, List<MoviesItem>>() {
             override fun loadFromDb(): Flow<List<Movie>> {
-                return localMovieDataSource.getAllMoviesPopular().map {
+                return localMovieDataSource.getAllMoviePopular(true).map {
                     it.moviePopularEntityToMovie()
                 }
             }
@@ -92,7 +92,7 @@ class MovieRepositoryImpl @Inject constructor(
     override fun getTvNowPlaying(): Flow<Resource<List<Movie>>> {
         return object : NetworkBoundResource<List<Movie>, List<TvShowItem>>() {
             override fun loadFromDb(): Flow<List<Movie>> {
-                return localMovieDataSource.getAllTvNowPlaying().map {
+                return localMovieDataSource.getAllMovieNowPlaying(false).map {
                     it.movieNowPlayingEntityToMovie()
                 }
             }
@@ -115,7 +115,7 @@ class MovieRepositoryImpl @Inject constructor(
     override fun getTvPopular(): Flow<Resource<List<Movie>>> {
         return object : NetworkBoundResource<List<Movie>, List<TvShowItem>>() {
             override fun loadFromDb(): Flow<List<Movie>> {
-                return localMovieDataSource.getAllTvPopular().map {
+                return localMovieDataSource.getAllMoviePopular(false).map {
                     it.moviePopularEntityToMovie()
                 }
             }
