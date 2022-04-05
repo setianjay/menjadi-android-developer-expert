@@ -35,11 +35,11 @@ class MovieUseCaseImpl @Inject constructor(private val movieRepository: MovieRep
         return movieRepository.getTvPopular()
     }
 
-    override fun searchMoviesByTitle(title: String): Flow<Resource<List<Movie>>> {
+    override suspend fun searchMoviesByTitle(title: String): Resource<List<Movie>> {
         return movieRepository.searchMoviesByTitle(title)
     }
 
-    override fun searchTvByTitle(title: String): Flow<Resource<List<Movie>>> {
+    override suspend fun searchTvByTitle(title: String): Resource<List<Movie>> {
         return movieRepository.searchTvByTitle(title)
     }
 

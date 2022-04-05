@@ -1,32 +1,38 @@
 package com.setianjay.watchme.search.presentation
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.setianjay.watchme.core.data.Resource
 import com.setianjay.watchme.core.domain.model.Movie
 import com.setianjay.watchme.core.domain.usecase.MovieUseCase
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 
+@ObsoleteCoroutinesApi
+@ExperimentalCoroutinesApi
+@FlowPreview
 class SearchViewModel(private val movieUseCase: MovieUseCase) : ViewModel() {
-    private val searchMoviesResult: MutableLiveData<Resource<List<Movie>>> = MutableLiveData()
+    val queryChannel = BroadcastChannel<String>(Channel.CONFLATED)
 
-    fun getMovie(): LiveData<Resource<List<Movie>>>{
-        return searchMoviesResult
-    }
 
-    fun searchMoviesByTitle(title: String) {
-        viewModelScope.launch {
-            movieUseCase.searchMoviesByTitle(title).collect {
-                searchMoviesResult.value = it
+    fun getMovie(type: Int): LiveData<Resource<List<Movie>>> =
+        queryChannel.asFlow()
+            .debounce(300L)
+            .distinctUntilChanged()
+            .filter { title ->
+                title.trim().isNotEmpty()
             }
-        }
-    }
-
-    fun searchTvByTitle(title: String) {
-        viewModelScope.launch {
-            movieUseCase.searchTvByTitle(title).collect {
-                searchMoviesResult.value = it
+            .mapLatest { title ->
+                if (type == 0) {
+                    movieUseCase.searchMoviesByTitle(title)
+                } else {
+                    movieUseCase.searchTvByTitle(title)
+                }
             }
-        }
-    }
+            .asLiveData()
 }

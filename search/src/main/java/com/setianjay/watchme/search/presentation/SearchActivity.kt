@@ -1,9 +1,9 @@
 package com.setianjay.watchme.search.presentation
 
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.setianjay.watchme.core.constants.RemoteConst
 import com.setianjay.watchme.core.data.Resource
@@ -19,8 +19,15 @@ import com.setianjay.watchme.search.di.DaggerSearchComponent
 import com.setianjay.watchme.search.presentation.adapter.SearchResultAdapter
 import com.setianjay.watchme.search.utils.ViewModelFactory
 import dagger.hilt.android.EntryPointAccessors
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ObsoleteCoroutinesApi
+@FlowPreview
+@ExperimentalCoroutinesApi
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
 
@@ -29,6 +36,8 @@ class SearchActivity : AppCompatActivity() {
 
     @Inject
     lateinit var factory: ViewModelFactory
+
+    @FlowPreview
     private val searchViewModel by viewModels<SearchViewModel> {
         factory
     }
@@ -67,22 +76,15 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun doSearch() {
-        binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val movieTitle = binding.etSearch.text.toString().trim()
-                if (movieTitle.isEmpty()) {
-                    binding.etSearch.error = resources.getString(R.string.field_required)
-                } else {
-                    if (searchType == SEARCH_TYPE_MOVIES) {
-                        searchViewModel.searchMoviesByTitle(movieTitle)
-                    } else {
-                        searchViewModel.searchTvByTitle(movieTitle)
-                    }
-                    return@setOnEditorActionListener false
+        val mTextViewTextChangedListener = TextViewTextChangedListener(object: TextViewTextChangedCallback{
+            override fun afterTextChanged(text: String) {
+                lifecycleScope.launch {
+                    searchViewModel.queryChannel.send(text)
                 }
             }
-            false
-        }
+        })
+
+        binding.etSearch.addTextChangedListener(mTextViewTextChangedListener)
     }
 
     private fun setupRecyclerView() {
@@ -102,24 +104,22 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupObserver(){
-        searchViewModel.getMovie().observe(this) { result ->
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    private fun setupObserver() {
+        searchViewModel.getMovie(searchType).observe(this) { result ->
             when (result) {
                 is Resource.Loading -> {
-                    binding.pbSearch.show(true)
-                    binding.layoutError.root.show(false)
-                    binding.layoutEmpty.root.show(false)
+                    //not implemented
                 }
                 is Resource.Success -> {
-                    binding.pbSearch.show(false)
+                    binding.layoutEmpty.root.show(false)
                     binding.rvSearch.show(true)
                     result.data?.let {
                         searchResultAdapter.setSearchResult(it)
                     }
                 }
                 is Resource.Error -> {
-                    binding.pbSearch.show(false)
-                    binding.rvSearch.show(false)
                     result.errorCode?.let { errorCode ->
                         showMessageBasedOnErrorCode(errorCode)
                     }
@@ -131,17 +131,10 @@ class SearchActivity : AppCompatActivity() {
     private fun showMessageBasedOnErrorCode(errorCode: Int) {
         when (errorCode) {
             RemoteConst.ERR_CODE_API -> {
-                binding.layoutError.root.show(true)
-                binding.layoutError.root.setOnClickListener {
-                    val movieTitle = binding.etSearch.text.toString().trim()
-                    if (searchType == SEARCH_TYPE_MOVIES) {
-                        searchViewModel.searchMoviesByTitle(movieTitle)
-                    } else {
-                        searchViewModel.searchMoviesByTitle(movieTitle)
-                    }
-                }
+                /* not implemented */
             }
             RemoteConst.ERR_CODE_EMPTY -> {
+                binding.rvSearch.show(false)
                 binding.layoutEmpty.root.show(true)
             }
         }

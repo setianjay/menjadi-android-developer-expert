@@ -9,18 +9,18 @@ import com.setianjay.watchme.core.data.source.remote.vo.ApiResponse
 import com.setianjay.watchme.core.domain.model.Movie
 import com.setianjay.watchme.core.domain.repository.MovieRepository
 import com.setianjay.watchme.core.utils.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MovieRepositoryImpl @Inject constructor(
     private val localMovieDataSource: LocalMovieDataSource,
-    private val remoteMovieDataSource: RemoteMovieDataSource,
-    private val executors: AppExecutor
+    private val remoteMovieDataSource: RemoteMovieDataSource
 ) : MovieRepository {
 
     override fun checkMovieIsFavorite(movieId: Long): Flow<Movie?> {
@@ -136,54 +136,49 @@ class MovieRepositoryImpl @Inject constructor(
         }.asFlow()
     }
 
-    override fun searchMoviesByTitle(title: String): Flow<Resource<List<Movie>>> {
-        return flow {
-            emit(Resource.Loading())
-            emitAll(remoteMovieDataSource.searchMovies(title).map { response ->
-                when (response) {
-                    is ApiResponse.Success -> {
-                        Resource.Success(response.data.moviesItemToMovie())
-                    }
-                    is ApiResponse.Error -> {
-                        Resource.Error(response.errorCode)
-                    }
-                    else -> {
-                        Resource.Error(RemoteConst.ERR_CODE_EMPTY)
-                    }
-                }
-            })
+    override suspend fun searchMoviesByTitle(title: String): Resource<List<Movie>> {
+        return when (val response = remoteMovieDataSource.searchMovies(title)) {
+            is ApiResponse.Success -> {
+                Resource.Success(response.data.moviesItemToMovie())
+            }
+            is ApiResponse.Empty -> {
+                Resource.Error(RemoteConst.ERR_CODE_EMPTY)
+            }
+            is ApiResponse.Error -> {
+                Resource.Error(response.errorCode)
+            }
         }
-
     }
 
-    override fun searchTvByTitle(title: String): Flow<Resource<List<Movie>>> {
-        return flow {
-            emit(Resource.Loading())
-            emitAll(remoteMovieDataSource.searchTv(title).map { response ->
-                when (response) {
-                    is ApiResponse.Success -> {
-                        Resource.Success(response.data.tvShowItemToMovie())
-                    }
-                    is ApiResponse.Error -> {
-                        Resource.Error(response.errorCode)
-                    }
-                    else -> {
-                        Resource.Error(RemoteConst.ERR_CODE_EMPTY)
-                    }
-                }
-            })
+    override suspend fun searchTvByTitle(title: String): Resource<List<Movie>> {
+        return when (val response = remoteMovieDataSource.searchTv(title)) {
+            is ApiResponse.Success -> {
+                Resource.Success(response.data.tvShowItemToMovie())
+            }
+            is ApiResponse.Empty -> {
+                Resource.Error(RemoteConst.ERR_CODE_EMPTY)
+            }
+            is ApiResponse.Error -> {
+                Resource.Error(response.errorCode)
+            }
         }
     }
 
     override fun setMovieFavorite(movie: Movie) {
         val movieFavoriteEntity = movie.toFavoriteEntity()
-        executors.singleThread()
-            .execute { localMovieDataSource.insertMovieFavorite(movieFavoriteEntity) }
+        CoroutineScope(Dispatchers.IO).launch {
+            localMovieDataSource.insertMovieFavorite(
+                movieFavoriteEntity
+            )
+        }
     }
 
     override fun unsetMovieFavorite(movie: Movie) {
         val movieFavoriteEntity = movie.toFavoriteEntity()
-        executors.singleThread()
-            .execute { localMovieDataSource.deleteMovieFavorite(movieFavoriteEntity) }
+        CoroutineScope(Dispatchers.IO).launch {
+            localMovieDataSource.deleteMovieFavorite(
+                movieFavoriteEntity
+            )
+        }
     }
 }

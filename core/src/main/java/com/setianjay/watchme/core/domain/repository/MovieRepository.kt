@@ -1,6 +1,7 @@
 package com.setianjay.watchme.core.domain.repository
 
 import com.setianjay.watchme.core.data.Resource
+import com.setianjay.watchme.core.data.source.remote.model.TvResponse
 import com.setianjay.watchme.core.domain.model.Movie
 import kotlinx.coroutines.flow.Flow
 
@@ -19,9 +20,9 @@ interface MovieRepository {
 
     fun getTvPopular(): Flow<Resource<List<Movie>>>
 
-    fun searchMoviesByTitle(title: String): Flow<Resource<List<Movie>>>
+    suspend fun searchMoviesByTitle(title: String): Resource<List<Movie>>
 
-    fun searchTvByTitle(title: String): Flow<Resource<List<Movie>>>
+    suspend fun searchTvByTitle(title: String): Resource<List<Movie>>
 
     fun setMovieFavorite(movie: Movie)
 

@@ -11,7 +11,7 @@ interface RemoteMovieDataSource {
 
     suspend fun getTvs(tvType: String): Flow<ApiResponse<List<TvShowItem>>>
 
-    suspend fun searchMovies(query: String): Flow<ApiResponse<List<MoviesItem>>>
+    suspend fun searchMovies(query: String): ApiResponse<List<MoviesItem>>
 
-    suspend fun searchTv(query: String): Flow<ApiResponse<List<TvShowItem>>>
+    suspend fun searchTv(query: String): ApiResponse<List<TvShowItem>>
 }

@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -53,39 +52,35 @@ class RemoteMovieDataSourceImpl @Inject constructor(private val movieDbEndPoint:
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun searchMovies(query: String): Flow<ApiResponse<List<MoviesItem>>> {
-        return flow {
-            try{
-                val response = movieDbEndPoint.searchMovies(query)
-                val listMovies = response.moviesItems
+    override suspend fun searchMovies(query: String): ApiResponse<List<MoviesItem>> {
+        return try{
+            val response = movieDbEndPoint.searchMovies(query)
+            val listMovies = response.moviesItems
 
-                if (listMovies.isEmpty()){
-                    emit(ApiResponse.Empty)
-                }else{
-                    emit(ApiResponse.Success(listMovies))
-                }
-            }catch (e: Exception){
-                emit(ApiResponse.Error(RemoteConst.ERR_CODE_API))
-                Timber.e(e.toString())
+            if (listMovies.isNotEmpty()){
+                ApiResponse.Success(listMovies)
+            }else{
+                ApiResponse.Empty
             }
-        }.flowOn(Dispatchers.IO)
+        }catch (e: Exception){
+            Timber.e(e.toString())
+            ApiResponse.Error(RemoteConst.ERR_CODE_API)
+        }
     }
 
-    override suspend fun searchTv(query: String): Flow<ApiResponse<List<TvShowItem>>> {
-        return flow {
-            try{
-                val response = movieDbEndPoint.searchTv(query)
-                val listTv = response.tvShowItems
+    override suspend fun searchTv(query: String): ApiResponse<List<TvShowItem>> {
+        return try{
+            val response = movieDbEndPoint.searchTv(query)
+            val listMovies = response.tvShowItems
 
-                if (listTv.isEmpty()){
-                    emit(ApiResponse.Empty)
-                }else{
-                    emit(ApiResponse.Success(listTv))
-                }
-            }catch (e: Exception){
-                emit(ApiResponse.Error(RemoteConst.ERR_CODE_API))
-                Timber.e(e.toString())
+            if (listMovies.isNotEmpty()){
+                ApiResponse.Success(listMovies)
+            }else{
+                ApiResponse.Empty
             }
-        }.flowOn(Dispatchers.IO)
+        }catch (e: Exception){
+            Timber.e(e.toString())
+            ApiResponse.Error(RemoteConst.ERR_CODE_API)
+        }
     }
 }
