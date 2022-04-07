@@ -20,6 +20,8 @@ buildscript {
         navigationVersion = "2.4.1"
         retrofitVersion = "2.9.0"
         roomVersion = "2.4.2"
+        sqlCipherVersion = "4.4.0"
+        sqlLiteKtxVersion = "2.2.0"
         swipeRefreshVersion = "1.1.0"
         timberVersion = "5.0.1"
     }

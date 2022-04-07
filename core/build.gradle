@@ -65,6 +65,10 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion" //room support coroutine
 
+    /* sql cipher */
+    implementation "net.zetetic:android-database-sqlcipher:$sqlCipherVersion" //encrypt local database
+    implementation "androidx.sqlite:sqlite-ktx:$sqlLiteKtxVersion"
+
     /* view model */
     api "androidx.activity:activity-ktx:$activityKtxVersion" // by viewModels on activity
     api "androidx.fragment:fragment-ktx:$fragmentKtxVersion" // by viewModels on fragment
