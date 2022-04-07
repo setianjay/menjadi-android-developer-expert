@@ -25,6 +25,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "API_KEY", '"13b1cda985269ed32518f3f9814be278"'
         }
     }
     buildFeatures{
