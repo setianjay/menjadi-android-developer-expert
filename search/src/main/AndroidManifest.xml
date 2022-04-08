@@ -16,7 +16,8 @@
     <application>
         <activity
             android:name=".presentation.SearchActivity"
-            android:parentActivityName="com.setianjay.watchme.presentation.home.HomeActivity" />
+            android:parentActivityName="com.setianjay.watchme.presentation.home.HomeActivity"
+            android:theme="@style/Theme.WatchMe.NoActionBar" />
     </application>
 
 </manifest>

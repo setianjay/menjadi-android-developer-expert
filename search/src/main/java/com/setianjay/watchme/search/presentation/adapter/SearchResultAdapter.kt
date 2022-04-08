@@ -1,5 +1,6 @@
 package com.setianjay.watchme.search.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,7 @@ class SearchResultAdapter(
         holder.bind(movie)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setSearchResult(result: List<Movie>) {
         this.listMovie.clear()
         this.listMovie.addAll(result)
