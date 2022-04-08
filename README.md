@@ -1,3 +1,3 @@
 # WatchMe
 
-[![setianjay](https://circleci.com/gh/setianjay/menjadi-android-developer-expert.svg?style=svg)](https://circleci.com/gh/setianjay/menjadi-android-developer-expert/)
+[![setianjay](https://circleci.com/gh/setianjay/menjadi-android-developer-expert.svg?style=svg)](https://app.circleci.com/pipelines/github/setianjay/menjadi-android-developer-expert?branch=submission-2)
