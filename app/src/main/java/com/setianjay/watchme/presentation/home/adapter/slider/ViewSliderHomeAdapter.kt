@@ -1,5 +1,6 @@
 package com.setianjay.watchme.presentation.home.adapter.slider
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,7 @@ class ViewSliderHomeAdapter(private val adapterListener: OnMovieAdapterListener)
         return moviesList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setSlider(sliderContent: List<Movie>) {
         moviesList.clear()
         moviesList.addAll(sliderContent)

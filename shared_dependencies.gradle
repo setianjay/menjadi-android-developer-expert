@@ -15,6 +15,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 
+    /* leak canary */
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
+
     /* timber */
     implementation "com.jakewharton.timber:timber:$timberVersion"
 }

@@ -1,5 +1,6 @@
 package com.setianjay.watchme.core.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,7 @@ class HorizontalMovieAdapter(private val listener: OnMovieAdapterListener) :
         return listMovie.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setDataMovie(movieList: List<Movie>) {
         listMovie.clear()
         listMovie.addAll(movieList)

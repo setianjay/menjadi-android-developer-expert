@@ -1,5 +1,6 @@
 package com.setianjay.watchme.core.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class VerticalMovieAdapter(private val context: Context, private val listener: O
         return listMovie.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setDataMovie(movieList: List<Movie>) {
         listMovie.clear()
         listMovie.addAll(movieList)

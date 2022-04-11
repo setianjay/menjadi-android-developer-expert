@@ -1,12 +1,14 @@
 package com.setianjay.watchme.core.di.module
 
 import com.setianjay.watchme.core.BuildConfig
+import com.setianjay.watchme.core.BuildConfig.CERTIFICATES_PINNER as CERTIFICATES
 import com.setianjay.watchme.core.constants.RemoteConst
 import com.setianjay.watchme.core.data.source.remote.network.MovieDbEndPoint
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,10 +33,16 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient{
+        val hostname = "api.themoviedb.org"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, *CERTIFICATES)
+            .build()
+
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
 

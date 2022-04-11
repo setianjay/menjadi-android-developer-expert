@@ -32,7 +32,7 @@ jobs:
           path: app/build/reports
           destination: reports
       - run:
-          name: Run Test
+          name: Run Tests
           command: ./gradlew lint test
       - store_test_results:
           path: app/build/test-results
