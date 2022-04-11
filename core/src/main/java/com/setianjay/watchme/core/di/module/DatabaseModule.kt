@@ -2,6 +2,7 @@ package com.setianjay.watchme.core.di.module
 
 import android.content.Context
 import androidx.room.Room
+import com.setianjay.watchme.core.BuildConfig.LOCAL_PASSPHARSE as PASSPHARSE
 import com.setianjay.watchme.core.data.source.local.persistence.room.MovieDao
 import com.setianjay.watchme.core.data.source.local.persistence.room.MovieDatabase
 import dagger.Module
@@ -20,7 +21,7 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideMovieDatabase(@ApplicationContext context: Context): MovieDatabase {
-        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicodingnidcamp".toCharArray())
+        val passphrase: ByteArray = SQLiteDatabase.getBytes(PASSPHARSE.toCharArray())
         val factory = SupportFactory(passphrase)
         return Room.databaseBuilder(
             context,

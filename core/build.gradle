@@ -24,12 +24,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             buildConfigField "String", "API_KEY", '"13b1cda985269ed32518f3f9814be278"'
+            buildConfigField "String[]", "CERTIFICATES_PINNER", "{" +
+                    '"sha256/oD/WAoRPvbez1Y2dfYfuo4yujAcYHXdv1Ivb2v2MOKk="' + "," +
+                    '"sha256/JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA="' + "," +
+                    '"sha256/++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI="' + "}"
+            buildConfigField "String", "LOCAL_PASSPHARSE", '"dicodingnidcamp"'
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             buildConfigField "String", "API_KEY", '"13b1cda985269ed32518f3f9814be278"'
+            buildConfigField "String[]", "CERTIFICATES_PINNER", "{" +
+                    '"sha256/oD/WAoRPvbez1Y2dfYfuo4yujAcYHXdv1Ivb2v2MOKk="' + "," +
+                    '"sha256/JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA="' + "," +
+                    '"sha256/++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI="' + "}"
+            buildConfigField "String", "LOCAL_PASSPHARSE", '"dicodingnidcamp"'
         }
     }
     buildFeatures{

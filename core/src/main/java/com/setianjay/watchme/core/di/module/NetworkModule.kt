@@ -1,6 +1,7 @@
 package com.setianjay.watchme.core.di.module
 
 import com.setianjay.watchme.core.BuildConfig
+import com.setianjay.watchme.core.BuildConfig.CERTIFICATES_PINNER as CERTIFICATES
 import com.setianjay.watchme.core.constants.RemoteConst
 import com.setianjay.watchme.core.data.source.remote.network.MovieDbEndPoint
 import dagger.Module
@@ -34,9 +35,7 @@ class NetworkModule {
     fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient{
         val hostname = "api.themoviedb.org"
         val certificatePinner = CertificatePinner.Builder()
-            .add(hostname, "sha256/oD/WAoRPvbez1Y2dfYfuo4yujAcYHXdv1Ivb2v2MOKk=")
-            .add(hostname, "sha256/JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=")
-            .add(hostname, "sha256/++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=")
+            .add(hostname, *CERTIFICATES)
             .build()
 
         return OkHttpClient.Builder()
